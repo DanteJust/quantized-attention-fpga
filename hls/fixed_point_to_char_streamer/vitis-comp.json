@@ -1,0 +1,13 @@
+{
+  "name": "fixed_point_to_char_streamer",
+  "type": "HLS",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "fixed_point_to_char_streamer"
+  },
+  "useSysrootToolchain": false,
+  "template": "empty_hls_component"
+}
