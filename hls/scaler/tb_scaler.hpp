@@ -5,7 +5,7 @@
 #include <fstream>
 
 // Constant: Number of elements coming from the input stream
-const int NUMBER_OF_ELEMENTS = 197 * 197;
+constexpr int NUMBER_OF_ELEMENTS = 197 * 197;
 
 /*
 =========================

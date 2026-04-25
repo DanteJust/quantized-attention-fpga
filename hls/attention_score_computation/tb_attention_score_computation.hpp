@@ -5,10 +5,10 @@
 #include <fstream>
 
 // Constant: Sequence length
-#define SEQ_LEN 197
+constexpr int SEQ_LEN = 197;
 
 // Constant: Head dimension
-#define HEAD_DIM 64
+constexpr int HEAD_DIM = 64;
 
 /*
 ====================================

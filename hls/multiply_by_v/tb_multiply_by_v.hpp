@@ -6,13 +6,13 @@
 #include <fstream>
 
 // Constant: Number of rows
-#define ROW_COUNT 197
+constexpr int ROW_COUNT = 197;
 
 // Constant: Number of elements in each row
-#define ROW_ELEMENTS_COUNT 197
+constexpr int ROW_ELEMENTS_COUNT = 197;
 
 // Constant: Head dim -> number of columns in V array
-#define HEAD_DIM 64
+constexpr int HEAD_DIM = 64;
 
 /*
 =========================

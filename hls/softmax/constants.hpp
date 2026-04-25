@@ -4,13 +4,13 @@
 #include "types.hpp"
 
 // Constant: Number of elements in pre-computed arrays
-#define PRECOMPUTED_ELEMENTS_COUNT 14
+constexpr int PRECOMPUTED_ELEMENTS_COUNT = 14;
 
 // Constant: Maximum number of elements in each row of the input stream
-#define MAX_ROW_ELEMENTS_COUNT 197
+constexpr int MAX_ROW_ELEMENTS_COUNT = 197;
 
 // Constant: Number of iterations for the division loop
-#define DIVISION_LOOP_ITERATIONS_COUNT 4
+constexpr int DIVISION_LOOP_ITERATIONS_COUNT = 4;
 
 // Constant: Logarithm of e with the base of 2
 const constant_fixed_t LOG_2_E = 1.4426950408889634;
