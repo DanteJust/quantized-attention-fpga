@@ -3,34 +3,49 @@
 
 #include <ap_axi_sdata.h>
 
+// Selected profile
+#define PROFILE_INT4
+
 /*
 ====================================
 Datatype definitions for INT4 inputs
 ====================================
 */
+#ifdef PROFILE_INT4
 // Items of the input Q and K arrays
 typedef ap_int<4> in_int_t;
 
 // Output stream structure
 typedef ap_axis<24,0,0,0> out_axis_t;
 typedef ap_int<24> out_int_t;
+#endif
 
 /*
 ====================================
 Datatype definitions for INT8 inputs
 ====================================
 */
-// typedef ap_int<8> in_int_t;
-// typedef ap_axis<32,0,0,0> out_axis_t;
-// typedef ap_int<32> out_int_t;
+#ifdef PROFILE_INT8
+// Items of the input Q and K arrays
+typedef ap_int<8> in_int_t;
+
+// Output stream structure
+typedef ap_axis<32,0,0,0> out_axis_t;
+typedef ap_int<32> out_int_t;
+#endif
 
 /*
 =====================================
 Datatype definitions for INT16 inputs
 =====================================
 */
-// typedef ap_int<16> in_int_t;
-// typedef ap_axis<46,0,0,0> out_axis_t;
-// typedef ap_int<46> out_int_t;
+#ifdef PROFILE_INT16
+// Items of the input Q and K arrays
+typedef ap_int<16> in_int_t;
+
+// Output stream structure
+typedef ap_axis<46,0,0,0> out_axis_t;
+typedef ap_int<46> out_int_t;
+#endif
 
 #endif

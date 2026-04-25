@@ -17,21 +17,27 @@
 Constants for INT4 inputs
 =========================
 */
+#ifdef PROFILE_INT4
 // Constant: Suffix for test files
 const std::string filename_suffix = "int4.bin";
+#endif
 
 /*
 =========================
 Constants for INT8 inputs
 =========================
 */
-// const std::string filename_suffix = "int8.bin";
+#ifdef PROFILE_INT8
+const std::string filename_suffix = "int8.bin";
+#endif
 
 /*
 ==========================
 Constants for INT16 inputs
 ==========================
 */
-// const std::string filename_suffix = "int16.bin";
+#ifdef PROFILE_INT16
+const std::string filename_suffix = "int16.bin";
+#endif
 
 #endif

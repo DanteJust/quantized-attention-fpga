@@ -11,17 +11,30 @@
 #define HEAD_DIM 64
 
 /*
-=============================================
-Datatype definitions for INT4 and INT8 inputs
-=============================================
+====================================
+Datatype definitions for INT4 inputs
+====================================
 */
+#ifdef PROFILE_INT4
 typedef ap_int<32> expected_output_t;
+#endif
+
+/*
+====================================
+Datatype definitions for INT8 inputs
+====================================
+*/
+#ifdef PROFILE_INT8
+typedef ap_int<32> expected_output_t;
+#endif
 
 /*
 =====================================
 Datatype definitions for INT16 inputs
 =====================================
 */
-// typedef ap_int<64> expected_output_t;
+#ifdef PROFILE_INT16
+typedef ap_int<64> expected_output_t;
+#endif
 
 #endif

@@ -19,21 +19,27 @@
 Constants for INT4 inputs
 =========================
 */
+#ifdef PROFILE_INT4
 // Constant: V Scale Factor
 const scale_fixed_t SCALE_FACTOR = 0.6062701940536499;
+#endif
 
 /*
 =========================
 Constants for INT8 inputs
 =========================
 */
-// const scale_fixed_t SCALE_FACTOR = 0.06156257539987564;
+#ifdef PROFILE_INT8
+const scale_fixed_t SCALE_FACTOR = 0.06156257539987564;
+#endif
 
 /*
 ==========================
 Constants for INT16 inputs
 ==========================
 */
-// const scale_fixed_t SCALE_FACTOR = 0.00023860734654590487;
+#ifdef PROFILE_INT16
+const scale_fixed_t SCALE_FACTOR = 0.00023860734654590487;
+#endif
 
 #endif
