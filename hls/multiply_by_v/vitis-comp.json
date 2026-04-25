@@ -1,0 +1,13 @@
+{
+  "name": "multiply_by_v",
+  "type": "HLS",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "multiply_by_v"
+  },
+  "useSysrootToolchain": false,
+  "template": "empty_hls_component"
+}
