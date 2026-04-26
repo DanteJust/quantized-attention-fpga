@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 
 def read_qkv_data(q_path: str, k_path: str, v_path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -101,7 +102,7 @@ def parse_integer(input_value: str) -> int:
         return int(input_value)
     except ValueError:
         print("Could not parse the input value to integer.")
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
@@ -133,7 +134,7 @@ if __name__ == "__main__":
             suffix = "int4.bin"
         case _:
             print("Invalid precision level.")
-            exit(1)
+            sys.exit(1)
 
     ## Store inputs and weights
     store_quantized_qkv_data(f'Q_head_{suffix}', f'K_head_{suffix}', f'V_head_{suffix}', Q_q, K_q, V_q)

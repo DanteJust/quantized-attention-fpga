@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 from transformers import AutoModelForImageClassification, PreTrainedModel
 from PIL import Image
@@ -64,7 +65,7 @@ def parse_integer(input_value: str) -> int:
         return int(input_value)
     except ValueError:
         print("Could not parse the input value to integer.")
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
@@ -96,7 +97,7 @@ if __name__ == "__main__":
                     image_path = "data/retriever_2.jpeg"
                 case _:
                     print("Incorrect image selected.")
-                    exit(1)
+                    sys.exit(1)
             binary_file_path = input("Please select output file path: ")
             save_image(image_path, binary_file_path)
         case 2:

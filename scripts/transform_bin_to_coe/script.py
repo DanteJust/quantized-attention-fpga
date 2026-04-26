@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 
 input_bin = input("Input binary file: ")
@@ -20,7 +21,7 @@ match operation_num:
         formatter = lambda x: f"{(int(x) & 0xF):X}"
     case _:
         print("Invalid precision level.")
-        exit(1)
+        sys.exit(1)
 
 with open(output_coe, "w") as f:
     f.write("memory_initialization_radix = 16;\n")
