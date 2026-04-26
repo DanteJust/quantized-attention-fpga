@@ -11,4 +11,4 @@ To run the application, follow these steps:
 7. If INT16 is used as the base precision for the `.xsas` platform, modify the code accordingly: comment out line 61, uncomment line 62, comment out line 76, and uncomment line 77 so that the implementation is compatible with the INT16 configuration. For INT4 and INT8 configurations, the default version can be used without modification.
 8. Build the application.
 9. Run the application (ensure the Basys3 board is connected to the PC).
-10. The results are streamed over the UART interface. You can use the provided script to capture the output and save it to a `.txt` file.
+10. The results are streamed over the UART interface. You can use the provided script (`scripts/read_store_serial_data/script.py`) to capture the output and save it to a `.txt` file.
