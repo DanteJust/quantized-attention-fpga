@@ -1,0 +1,99 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"3211,630",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
+#  -string -flagsOSRD
+preplace port port-id_clk_100MHz -pg 1 -lvl 0 -x -240 -y 850 -defaultsOSRD
+preplace port port-id_reset_rtl_0 -pg 1 -lvl 0 -x -240 -y 770 -defaultsOSRD
+preplace port port-id_uart_txd_0 -pg 1 -lvl 12 -x 3840 -y 820 -defaultsOSRD
+preplace inst microblaze_0 -pg 1 -lvl 3 -x 630 -y 970 -defaultsOSRD
+preplace inst microblaze_0_local_memory -pg 1 -lvl 4 -x 1020 -y 980 -defaultsOSRD
+preplace inst mdm_1 -pg 1 -lvl 2 -x 210 -y 970 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 1 -x -100 -y 840 -defaultsOSRD
+preplace inst rst_clk_wiz_1_100M -pg 1 -lvl 2 -x 210 -y 790 -defaultsOSRD
+preplace inst blk_mem_gen_Q -pg 1 -lvl 10 -x 3390 -y 40 -defaultsOSRD
+preplace inst blk_mem_gen_K -pg 1 -lvl 10 -x 3390 -y 360 -defaultsOSRD
+preplace inst blk_mem_gen_V -pg 1 -lvl 10 -x 3390 -y 680 -defaultsOSRD
+preplace inst attention_score_comp_0 -pg 1 -lvl 5 -x 1340 -y 390 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 9 -x 3030 -y 80 -defaultsOSRD
+preplace inst xlslice_1 -pg 1 -lvl 9 -x 3030 -y 230 -defaultsOSRD
+preplace inst xlslice_2 -pg 1 -lvl 9 -x 3030 -y 390 -defaultsOSRD
+preplace inst xlslice_3 -pg 1 -lvl 9 -x 3030 -y 540 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 4 -x 1020 -y 790 -defaultsOSRD
+preplace inst scaler_0 -pg 1 -lvl 6 -x 1900 -y 720 -defaultsOSRD
+preplace inst softmax_0 -pg 1 -lvl 7 -x 2270 -y 740 -defaultsOSRD
+preplace inst multiply_by_v_0 -pg 1 -lvl 8 -x 2640 -y 870 -defaultsOSRD
+preplace inst xlslice_4 -pg 1 -lvl 9 -x 3030 -y 710 -defaultsOSRD
+preplace inst xlslice_5 -pg 1 -lvl 9 -x 3030 -y 870 -defaultsOSRD
+preplace inst fixed_point_to_char_0 -pg 1 -lvl 10 -x 3390 -y 910 -defaultsOSRD
+preplace inst uart_tx_0 -pg 1 -lvl 11 -x 3700 -y 830 -defaultsOSRD
+preplace netloc microblaze_0_Clk 1 1 10 20 890 400 880 880 890 1160 810 1720 620 2080 640 2450 640 N 640 3130 990 3570
+preplace netloc clk_wiz_1_locked 1 1 1 30 830n
+preplace netloc rst_clk_wiz_1_100M_mb_reset 1 2 1 390 750n
+preplace netloc rst_clk_wiz_1_100M_bus_struct_reset 1 2 2 NJ 770 860
+preplace netloc mdm_1_debug_sys_rst 1 1 2 40 900 380
+preplace netloc clk_100MHz_1 1 0 1 NJ 850
+preplace netloc reset_rtl_0_1 1 0 2 -190 770 NJ
+preplace netloc xlslice_0_Dout 1 9 1 3140J -50n
+preplace netloc attention_score_comp_0_Q_Addr_A 1 5 4 N 80 NJ 80 NJ 80 NJ
+preplace netloc attention_score_comp_0_Q_Clk_A 1 5 5 1510 -30 NJ -30 NJ -30 NJ -30 NJ
+preplace netloc blk_mem_gen_Q_douta 1 5 5 1520 -10 NJ -10 NJ -10 NJ -10 NJ
+preplace netloc attention_score_comp_0_Q_EN_A 1 5 5 1530 20 NJ 20 NJ 20 NJ 20 3220J
+preplace netloc attention_score_comp_0_Q_Rst_A 1 5 5 1550 150 NJ 150 NJ 150 NJ 150 3150J
+preplace netloc xlslice_1_Dout 1 9 1 3180J 70n
+preplace netloc attention_score_comp_0_Q_Addr_B 1 5 4 1570 230 NJ 230 NJ 230 NJ
+preplace netloc attention_score_comp_0_Q_Clk_B 1 5 5 1540 10 NJ 10 NJ 10 NJ 10 3210J
+preplace netloc blk_mem_gen_Q_doutb 1 5 5 1580 170 NJ 170 NJ 170 NJ 170 3210J
+preplace netloc attention_score_comp_0_Q_EN_B 1 5 5 1560 140 NJ 140 NJ 140 NJ 140 3170J
+preplace netloc attention_score_comp_0_Q_Rst_B 1 5 5 1590 160 NJ 160 NJ 160 NJ 160 3220J
+preplace netloc xlslice_2_Dout 1 9 1 3150 270n
+preplace netloc attention_score_comp_0_K_Addr_A 1 5 4 1620J 390 NJ 390 NJ 390 NJ
+preplace netloc attention_score_comp_0_K_Clk_A 1 5 5 1600J 300 NJ 300 NJ 300 NJ 300 3140
+preplace netloc blk_mem_gen_K_douta 1 5 5 1610J 320 NJ 320 NJ 320 NJ 320 3220
+preplace netloc attention_score_comp_0_K_EN_A 1 5 5 1640J 330 NJ 330 NJ 330 NJ 330 N
+preplace netloc attention_score_comp_0_K_Rst_A 1 5 5 1630J 310 NJ 310 NJ 310 NJ 310 3180
+preplace netloc xlslice_3_Dout 1 9 1 3170 390n
+preplace netloc attention_score_comp_0_K_Addr_B 1 5 4 1670J 540 NJ 540 NJ 540 NJ
+preplace netloc attention_score_comp_0_K_Clk_B 1 5 5 1650J 450 NJ 450 NJ 450 NJ 450 3140
+preplace netloc blk_mem_gen_K_doutb 1 5 5 1680J 480 NJ 480 NJ 480 NJ 480 3210
+preplace netloc attention_score_comp_0_K_EN_B 1 5 5 1660J 460 NJ 460 NJ 460 NJ 460 3220
+preplace netloc attention_score_comp_0_K_Rst_B 1 5 5 1690J 470 NJ 470 NJ 470 NJ 470 N
+preplace netloc rst_clk_wiz_1_100M_peripheral_aresetn 1 2 9 NJ 830 890 880 1170 790 1700 610 2100 630 2460J 630 2820 610 3150 1000 3580
+preplace netloc xlslice_4_Dout 1 9 1 3170 590n
+preplace netloc multiply_by_v_0_V_Addr_A 1 8 1 2850J 710n
+preplace netloc multiply_by_v_0_V_Clk_A 1 8 2 2830J 600 3160
+preplace netloc blk_mem_gen_V_douta 1 8 2 2840J 620 3160
+preplace netloc multiply_by_v_0_V_EN_A 1 8 2 2860J 650 N
+preplace netloc multiply_by_v_0_V_Rst_A 1 8 2 2890J 810 3180
+preplace netloc xlslice_5_Dout 1 9 1 3210 710n
+preplace netloc multiply_by_v_0_V_Addr_B 1 8 1 2910J 870n
+preplace netloc multiply_by_v_0_V_Clk_B 1 8 2 2880J 790 3190
+preplace netloc blk_mem_gen_V_doutb 1 8 2 2870J 630 3140
+preplace netloc multiply_by_v_0_V_EN_B 1 8 2 2900J 780 3200
+preplace netloc multiply_by_v_0_V_Rst_B 1 8 2 2920J 800 3220
+preplace netloc uart_tx_0_uart_txd 1 11 1 N 820
+preplace netloc microblaze_0_dlmb_1 1 3 1 N 950
+preplace netloc microblaze_0_ilmb_1 1 3 1 N 970
+preplace netloc microblaze_0_debug 1 2 1 N 960
+preplace netloc microblaze_0_M_AXI_DP 1 3 1 870 770n
+preplace netloc axi_smc_M00_AXI 1 4 1 1150 370n
+preplace netloc attention_score_comp_0_output_stream 1 5 1 1510 700n
+preplace netloc axi_smc_M01_AXI 1 4 2 NJ 780 1710
+preplace netloc scaler_0_output_stream 1 6 1 2070 710n
+preplace netloc axi_smc_M02_AXI 1 4 3 NJ 800 1730J 630 2090
+preplace netloc axi_smc_M03_AXI 1 4 4 1150 840 NJ 840 NJ 840 NJ
+preplace netloc softmax_0_output_stream 1 7 1 2440 730n
+preplace netloc multiply_by_v_0_output_stream 1 8 2 2930 930 3140J
+preplace netloc fixed_point_to_char_0_output_stream 1 10 1 3560 810n
+levelinfo -pg 1 -240 -100 210 630 1020 1340 1900 2270 2640 3030 3390 3700 3840
+pagesize -pg 1 -db -bbox -sgen -370 -130 3960 1100
+"
+}
+{
+   "da_axi4_cnt":"4",
+   "da_board_cnt":"3",
+   "da_clkrst_cnt":"1",
+   "da_mb_cnt":"2"
+}
