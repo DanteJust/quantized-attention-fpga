@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+import argparse
 
 
 def read_qkv_data(q_path: str, k_path: str, v_path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -48,49 +49,6 @@ def store_scales(q_scale: np.generic, k_scale: np.generic, v_scale: np.generic, 
     np.savez(file_name, sQ=q_scale, sK=k_scale, sV=v_scale)
 
 
-def quantize_to_int16(data: np.ndarray) -> tuple[np.ndarray, np.generic]:
-    """
-    Transforms input data to INT16 representation.
-
-    :param data: Data to transform.
-    :returns: Tuple of transformed data and applied scale.
-    """
-    qmin = -32768
-    qmax = 32767
-    scale = np.max(np.abs(data)) / qmax
-    data_q = np.round(data / scale)
-    data_q = np.clip(data_q, qmin, qmax).astype(np.int16)
-    return data_q, scale
-
-
-def quantize_to_int8(data: np.ndarray) -> tuple[np.ndarray, np.generic]:
-    """
-    Transforms input data to INT8 representation.
-
-    :param data: Data to transform.
-    :returns: Tuple of transformed data and applied scale.
-    """
-    qmax = 127
-    scale = np.max(np.abs(data)) / qmax
-    data_q = np.round(data / scale).astype(np.int8)
-    return data_q, scale
-
-
-def quantize_to_int4(data: np.ndarray) -> tuple[np.ndarray, np.generic]:
-    """
-    Transforms input data to INT4 representaion.
-
-    :param data: Data to transform.
-    :returns: Tuple of transformed data and applied scale.
-    """
-    picked_percentile = 99.0
-    qmin, qmax = -8, 7
-    clip = np.percentile(np.abs(data), picked_percentile)
-    scale = clip / qmax + 1e-12
-    data_q = np.clip(np.round(data / scale), qmin, qmax).astype(np.int8)
-    return data_q, scale
-
-
 def parse_integer(input_value: str) -> int:
     """
     Parses the input value to a integer, if it's not possible, it exists the application.
@@ -105,39 +63,47 @@ def parse_integer(input_value: str) -> int:
         sys.exit(1)
 
 
+def quantize(data: np.ndarray, precision: str, percentile: float) -> tuple[np.ndarray, np.generic]:
+    """
+    Transforms input data to INT16/INT8/INT4 representation.
+    :param data: Data to transform.
+    :param percentile: Percentile used for outlier clipping.
+    :returns: Tuple of transformed data and applied scale.
+    """
+    if precision not in ["INT4", "INT8", "INT16"]:
+        raise Exception("Invalid precision selected.")
+    if precision == "INT4":
+        qmin, qmax = -8, 7
+    elif precision == "INT8":
+        qmin, qmax = -128, 127
+    else:
+        qmin, qmax = -32768, 32767
+    target_np_type = np.int16 if precision == "INT16" else np.int8
+    clip = np.percentile(np.abs(data), percentile)
+    scale = clip / qmax + 1e-12
+    data_q = np.clip(np.round(data / scale), qmin, qmax).astype(target_np_type)
+    return data_q, scale
+
+
 if __name__ == "__main__":
+    ## Setup the argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--precision")
+    parser.add_argument("--percentile")
+    args = parser.parse_args()
+    if not args.precision or not args.percentile:
+        raise Exception("--precision and --percentile arguments are required")
+
     ## Read the data
     Q, K, V = read_qkv_data(q_path='Q_head.bin', k_path='K_head.bin', v_path='V_head.bin')
 
-    ## Select desired quantization precision
-    print("1. Quantize to INT16.")
-    print("2. Quantize to INT8.")
-    print("3. Quantize to INT4.")
-    operation_num = parse_integer(input("Please select the quantization precision: "))
-
     ## Quantize
-    match operation_num:
-        case 1:
-            Q_q, sQ = quantize_to_int16(Q)
-            K_q, sK = quantize_to_int16(K)
-            V_q, sV = quantize_to_int16(V)
-            suffix = "int16.bin"
-        case 2:
-            Q_q, sQ = quantize_to_int8(Q)
-            K_q, sK = quantize_to_int8(K)
-            V_q, sV = quantize_to_int8(V)
-            suffix = "int8.bin"
-        case 3:
-            Q_q, sQ = quantize_to_int4(Q)
-            K_q, sK = quantize_to_int4(K)
-            V_q, sV = quantize_to_int4(V)
-            suffix = "int4.bin"
-        case _:
-            print("Invalid precision level.")
-            sys.exit(1)
+    Q_q, sQ = quantize(Q, args.precision, float(args.percentile))
+    K_q, sK = quantize(K, args.precision, float(args.percentile))
+    V_q, sV = quantize(V, args.precision, float(args.percentile))
 
     ## Store inputs and weights
-    store_quantized_qkv_data(f'Q_head_{suffix}', f'K_head_{suffix}', f'V_head_{suffix}', Q_q, K_q, V_q)
-    store_scales(sQ, sK, sV, 'scales_head.npz')
-
+    store_quantized_qkv_data(f"Q_head_{args.precision}.bin", f"K_head_{args.precision}.bin", f"V_head_{args.precision}.bin", Q_q, K_q, V_q)
+    store_scales(sQ, sK, sV, f"scales_head_{args.precision}.npz")
     print("Data has been saved.")
+

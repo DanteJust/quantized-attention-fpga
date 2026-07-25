@@ -1,5 +1,6 @@
 import os
 import sys
+import argparse
 import numpy as np
 from transformers import AutoModelForImageClassification, PreTrainedModel
 from PIL import Image
@@ -70,38 +71,16 @@ def parse_integer(input_value: str) -> int:
 
 if __name__ == "__main__":
     model_name = "facebook/deit-tiny-patch16-224"
-    print("1. Load and save the image to a binary file.")
-    print("2. Save the model's weights to binary files.")
-    operation_num = parse_integer(input("Please select the operation to perform: "))
-    match operation_num:
-        case 1:
-            print("1. Cat 1")
-            print("2. Cat 2")
-            print("3. Boxer 1")
-            print("4. Boxer 2")
-            print("5. Retriever 1")
-            print("6. Retriever 2")
-            target_image_num = parse_integer(input("Please select an image: "))
-            match target_image_num:
-                case 1:
-                    image_path = "data/cat_1.png"
-                case 2:
-                    image_path = "data/cat_2.png"
-                case 3:
-                    image_path = "data/boxer_1.jpg"
-                case 4:
-                    image_path = "data/boxer_2.jpeg"
-                case 5:
-                    image_path = "data/retriever_1.jpg"
-                case 6:
-                    image_path = "data/retriever_2.jpeg"
-                case _:
-                    print("Incorrect image selected.")
-                    sys.exit(1)
-            binary_file_path = input("Please select output file path: ")
-            save_image(image_path, binary_file_path)
-        case 2:
-            model = load_model(model_name)
-            save_weights(model)
-        case _:
-            print("Unknown operation.")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--action")
+    parser.add_argument("--image")
+    args = parser.parse_args()
+    if args.action == "save_image":
+        image_path = f"data/{args.image}"
+        save_image(image_path, "input_image.bin")
+    elif args.action == "save_weights":
+        model = load_model(model_name)
+        save_weights(model)
+    else:
+        print("Invalid arguments")
+

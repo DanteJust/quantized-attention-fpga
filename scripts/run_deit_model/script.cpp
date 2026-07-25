@@ -162,14 +162,13 @@ void multi_head_attention(const std::vector<float>& x,
         linear(&x[t*hidden_dim], qkv_W, qkv_b, &qkv[t*3*hidden_dim], hidden_dim, 3*hidden_dim);
     }
 
-    // Uncomment this if you want to store the QKV projection to binary file:
-    // std::cout << "Storing QKV projection of encoder layer " << layer << " to a binary file." << std::endl;
-    // std::ofstream fout("qkv_" + std::to_string(layer) + ".bin", std::ios::binary);
-	// if (fout) {
-    //     fout.write(reinterpret_cast<const char*>(qkv.data()), qkv.size() * sizeof(float));
-    //     fout.close();
-    //     std::cout << "QKV written to qkv_" << layer << ".bin (" << qkv.size() * sizeof(float) << " bytes)" << std::endl;
-	// }
+    std::cout << "Storing QKV projection of encoder layer " << layer << " to a binary file." << std::endl;
+    std::ofstream fout("qkv_" + std::to_string(layer) + ".bin", std::ios::binary);
+	if (fout) {
+        fout.write(reinterpret_cast<const char*>(qkv.data()), qkv.size() * sizeof(float));
+        fout.close();
+        std::cout << "QKV written to qkv_" << layer << ".bin (" << qkv.size() * sizeof(float) << " bytes)" << std::endl;
+	}
 
     // 2. Compute attention per head
     for(int h=0; h<num_heads; h++) {
@@ -301,32 +300,32 @@ std::string construct_filename(const std::string& prefix, int layer, const std::
 
 void run_encoder(std::vector<float>& x, int layer) {
     // Load weights
-    std::vector<float> q_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_query_weight.bin"), 192 * 192);
-    std::vector<float> k_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_key_weight.bin"), 192 * 192);
-    std::vector<float> v_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_value_weight.bin"), 192 * 192);
+    std::vector<float> q_W = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_q_proj_weight.bin"), 192 * 192);
+    std::vector<float> k_W = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_k_proj_weight.bin"), 192 * 192);
+    std::vector<float> v_W = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_v_proj_weight.bin"), 192 * 192);
     
-    std::vector<float> q_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_query_bias.bin"), 192);
-    std::vector<float> k_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_key_bias.bin"), 192);
-    std::vector<float> v_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_attention_value_bias.bin"), 192);
+    std::vector<float> q_B = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_q_proj_bias.bin"), 192);
+    std::vector<float> k_B = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_k_proj_bias.bin"), 192);
+    std::vector<float> v_B = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_v_proj_bias.bin"), 192);
     
     // Concatenate QKV weights and biases
     std::vector<float> qkv_W = concat_qkv(q_W, k_W, v_W);
     std::vector<float> qkv_B = concat_qkv(q_B, k_B, v_B);
     
-    std::vector<float> attn_out_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_output_dense_weight.bin"), 192 * 192);
-    std::vector<float> attn_out_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_attention_output_dense_bias.bin"), 192);
+    std::vector<float> attn_out_W = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_o_proj_weight.bin"), 192 * 192);
+    std::vector<float> attn_out_B = load_bin(construct_filename("weights/vit_layers_", layer, "_attention_o_proj_bias.bin"), 192);
     
-    std::vector<float> gamma1 = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_layernorm_before_weight.bin"), 192);
-    std::vector<float> beta1 = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_layernorm_before_bias.bin"), 192);
+    std::vector<float> gamma1 = load_bin(construct_filename("weights/vit_layers_", layer, "_layernorm_before_weight.bin"), 192);
+    std::vector<float> beta1 = load_bin(construct_filename("weights/vit_layers_", layer, "_layernorm_before_bias.bin"), 192);
     
-    std::vector<float> fc1_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_intermediate_dense_weight.bin"), 768 * 192);
-    std::vector<float> fc1_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_intermediate_dense_bias.bin"), 768);
+    std::vector<float> fc1_W = load_bin(construct_filename("weights/vit_layers_", layer, "_mlp_fc1_weight.bin"), 768 * 192);
+    std::vector<float> fc1_B = load_bin(construct_filename("weights/vit_layers_", layer, "_mlp_fc1_bias.bin"), 768);
     
-    std::vector<float> fc2_W = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_output_dense_weight.bin"), 192 * 768);
-    std::vector<float> fc2_B = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_output_dense_bias.bin"), 192);
+    std::vector<float> fc2_W = load_bin(construct_filename("weights/vit_layers_", layer, "_mlp_fc2_weight.bin"), 192 * 768);
+    std::vector<float> fc2_B = load_bin(construct_filename("weights/vit_layers_", layer, "_mlp_fc2_bias.bin"), 192);
     
-    std::vector<float> gamma2 = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_layernorm_after_weight.bin"), 192);
-    std::vector<float> beta2 = load_bin(construct_filename("weights/vit_encoder_layer_", layer, "_layernorm_after_bias.bin"), 192);
+    std::vector<float> gamma2 = load_bin(construct_filename("weights/vit_layers_", layer, "_layernorm_after_weight.bin"), 192);
+    std::vector<float> beta2 = load_bin(construct_filename("weights/vit_layers_", layer, "_layernorm_after_bias.bin"), 192);
     
     encoder_block(x, layer, qkv_W.data(), qkv_B.data(), attn_out_W.data(), attn_out_B.data(), 
                   gamma1.data(), beta1.data(), fc1_W.data(), fc1_B.data(), 
